@@ -2,8 +2,8 @@
   <div class="login">
    <div class="container">
        <!-- 头像 -->
-      <img src="../assets/图/c (3).jpg" class="avatar" alt="">
-      <el-form :model="loginForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+      <img src="../assets/图/c (3).jpg" class="avatar" alt>
+      <el-form :model="loginForm" :rules="rules" ref="loginForm" class="demo-ruleForm">
         <!-- 用户 -->
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" placeholder="请输入用户名" prefix-icon="icon-user"></el-input>
@@ -44,16 +44,27 @@ export default {
       }
     },
     methods:{
-      async loginSubmit(){
-        let res =await login(this.loginForm)
+      loginSubmit(){
+        //实现用户数据的验证，如果验证通过再发请求，否则中断本次请求
+        this.$refs.loginForm.validate(async valid=>{
+          if (valid){
+               let res =await login(this.loginForm)
         console.log(res)
         if(res.data.message==='登录成功'){
+          //储存当前用户登入状态
+          localStorage.setItem('heima_toutiao_houtai_41',res.data.data.token)
           //跳转到主页
+          this.$router.push({name:'Index'})
         }else{
           //给出错误提示
-          this.$message.error(res.data.message);
-          
+          this.$message.error(res.data.message);           
         }
+          }else{
+            this.$message.warning('数据输入不合法')
+            return false
+          }
+        })
+     
       }
     }
 

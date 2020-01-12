@@ -14,7 +14,8 @@
         </el-form-item>
         <!-- 按钮 -->
         <el-form-item>
-          <el-button type="primary" class="login-btn">登录</el-button>
+          <el-button type="primary" class="login-btn"
+          @click="loginSubmit">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -22,12 +23,13 @@
 </template>
 
 <script>
+import {login} from '@/apis/user.js'
 export default {
   data(){
     return{
         loginForm:{
-            username:'',
-            password:''
+            username:'111112',
+            password:'12345'
         },
         //添加数据验证规则
         rules:{
@@ -38,6 +40,19 @@ export default {
                 {reqired:true,message:'请输入密码',trigger:'blur'},
                 {min:3,max:16,message:'请输入3-16位密码',trigger:'blur'}
             ]
+        }
+      }
+    },
+    methods:{
+      async loginSubmit(){
+        let res =await login(this.loginForm)
+        console.log(res)
+        if(res.data.message==='登录成功'){
+          //跳转到主页
+        }else{
+          //给出错误提示
+          this.$message.error(res.data.message);
+          
         }
       }
     }

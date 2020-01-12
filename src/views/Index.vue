@@ -80,7 +80,10 @@
                 <span> 退出</span>
             </div>
         </el-header>
-        <el-main>欢迎你使用后台管理系统</el-main>
+        <el-main>
+          <!-- 引入Welcome.vue -->
+          <router-view></router-view>
+          </el-main>
       </el-container>
     </el-container>
   </div>

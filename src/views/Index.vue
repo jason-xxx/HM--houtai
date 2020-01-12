@@ -38,7 +38,7 @@
               <i class="el-icon-document"></i>
               <span>文章管理</span>
             </template>
-            <el-menu-item index="/login">
+            <el-menu-item index="/index/postlist">
               <template slot="title">
                 <i class="el-icon-document-copy"></i>
                 <span>文章列表</span>

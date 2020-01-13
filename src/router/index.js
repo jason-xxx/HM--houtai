@@ -9,6 +9,12 @@ Vue.use(VueRouter)
 
 let router = new VueRouter({
   routes: [
+    //默认跳转主页
+    {
+      name: 'Suibian',
+      path: '/',
+      component: Login
+    },
     {
       name: 'Login',
       path: '/login',

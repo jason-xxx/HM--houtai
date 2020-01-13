@@ -44,7 +44,7 @@
                 <span>文章列表</span>
               </template>
             </el-menu-item>
-            <el-menu-item index="2-2">
+            <el-menu-item index="/index/PostPublish">
               <template slot="title">
                 <i class="el-icon-document-checked"></i>
                 <span>文章发布</span>

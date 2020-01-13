@@ -4,12 +4,12 @@ import Login from '@/views/Login.vue'
 import  Index from '@/views/Index.vue'
 import Postlist from '@/views/Postlist.vue'
 import Welcome from '@/views/Welcome.vue'
+import PostPublish from '@/views/PostPublish.vue'
 
 Vue.use(VueRouter)
 
 let router = new VueRouter({
   routes: [
-    //默认跳转主页
     {
       name: 'Suibian',
       path: '/',
@@ -36,6 +36,11 @@ let router = new VueRouter({
           name:'Postlist',
           path:'postlist',
           component:Postlist
+        },
+        {
+         name:'PostPublish',
+         path:'postPublish',
+         component:PostPublish
         }
       ]
     }

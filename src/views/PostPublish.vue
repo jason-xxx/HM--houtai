@@ -34,6 +34,28 @@
           </el-upload>
         </el-form-item>
 
+        <!-- 栏目-复选框组 -->
+        <el-form-item label="栏目:">
+          <el-checkbox
+            :indeterminate="isIndeterminate"
+            v-model="checkAll"
+            @change="handleCheckAllChange"
+          >全选</el-checkbox>
+          <div style="margin: 15px 0;"></div>
+          <el-checkbox-group v-model="post.categories" @change="handleCheckedCitiesChange">
+            <el-checkbox v-for="cate in cateList" :label="cate.id" :key="cate.id">{{cate.name}}</el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+
+        <!-- 封面 -->
+        <el-form-item label="封面:">
+          <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card">
+            <i class="el-icon-plus"></i>
+          </el-upload>
+        </el-form-item>
+
+        <!-- 提交按钮 -->
+        <el-button type="primary" @click="publishPost" style="float:right;margin-bottom:20px">发布文章</el-button>
       </el-form>
     </el-card>
   </div>
@@ -43,6 +65,7 @@
 //通过npm i vue-word-editor --save下载富文本框，并引入
 import VueEditor from "vue-word-editor";
 import "quill/dist/quill.snow.css";
+import { getCateList } from "@/apis/cate.js";
 export default {
   //注册VueEditor，否则富文本无法使用
   components: {
@@ -50,6 +73,10 @@ export default {
   },
   data() {
     return {
+        // 栏目-复选框组
+      isIndeterminate: false,
+      checkAll: false,
+      cateList: [],
       //根据api文档获取以下数据
       post: {
         title: "",
@@ -79,6 +106,28 @@ export default {
         }
       }
     };
+  },
+  methods: {
+    // 1.全选和全不选------------------------------
+    handleCheckAllChange(val) {
+      //   this.checkedCities = val ? cityOptions : []
+      //   this.isIndeterminate = false
+    },
+    // 单击按钮组中的某个复选框所触发的事件
+    handleCheckedCitiesChange(value) {
+      //   let checkedCount = value.length
+      //   this.checkAll = checkedCount === this.cities.length
+      //   this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
+    },
+    // 2.发布文章--------------------------------
+    publishPost() {
+      console.log(this.post);
+    }
+  },
+  async mounted() {
+    let res = await getCateList();
+    console.log(res);
+    this.cateList = res.data.data.splice(1);
   }
 };
 </script>
